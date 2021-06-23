@@ -1,0 +1,325 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto+Mono&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
+}
+body {
+  overflow: hidden;
+  margin: 0;
+  background-color: rgb(255, 221, 227);
+}
+#brand-logo {
+  h1 {
+    color: #ff6600;
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin: 6px;
+    font-family: "Dancing Script", cursive;
+    &:hover {
+      color: #ff2600;
+    }
+  }
+}
+.wrapper {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  z-index: 1;
+
+  transition: all 0.6s ease-in-out;
+  ul {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    height: 90%;
+
+    transform: translate(-50%, -50%);
+    list-style: none;
+    text-align: center;
+    li {
+      height: 10%;
+      margin: 15px 0;
+      a {
+        text-decoration: none;
+        font-size: 30px;
+        font-weight: 500;
+        padding: 5px 30px;
+        color: #fff;
+        border-radius: 50px;
+        position: absolute;
+        line-height: 50px;
+        margin: 5px 30px;
+        opacity: 0;
+        transition: all 0.3s ease;
+        transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+        transition: opacity 1.2s,
+          transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+        transform: translateX(100px);
+        &:after {
+          position: absolute;
+          content: "";
+          background: #fff;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+          border-radius: 50px;
+          transform: scaleY(0);
+          z-index: -1;
+          transition: transform 0.3s ease;
+        }
+        &:hover {
+          &:after {
+            transform: scaleY(1);
+          }
+          color: #1a73e8;
+        }
+      }
+    }
+  }
+}
+#active {
+  &:checked {
+    ~ {
+      .wrapper {
+        right: 0;
+        ul {
+          li {
+            a {
+              opacity: 1;
+              transform: none;
+              transition-timing-function: ease, cubic-bezier(0.1, 1.3, 0.3, 1);
+              transition-delay: 0.6s;
+              transform: translateX(-100px);
+            }
+          }
+        }
+      }
+    }
+    + {
+      .menu-btn {
+        span {
+          transform: scaleX(0);
+        }
+        &:before {
+          transform: rotate(45deg);
+          border-color: #fff;
+        }
+        &:after {
+          transform: rotate(-45deg);
+          border-color: #fff;
+        }
+      }
+    }
+  }
+}
+.menu-btn {
+  position: absolute;
+  z-index: 2;
+  right: 20px;
+  top: 0;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  span {
+    content: "";
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 30%;
+    width: 40%;
+    border-bottom: 2px solid #000;
+    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 30%;
+    width: 40%;
+    border-bottom: 2px solid #000;
+    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translateY(-8px);
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 30%;
+    width: 40%;
+    border-bottom: 2px solid #000;
+    transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translateY(8px);
+  }
+}
+.close {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: background 0.6s;
+}
+input[type="checkbox"] {
+  display: none;
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .player-div {
+    width: 80%;
+    max-width: 600px;
+    height: 56%;
+    border-radius: 20px;
+    background-color: transparent;
+    box-shadow: 0px 0px 20px 10px #00000044;
+    .player {
+      background-color: rgb(255, 188, 188);
+      width: 100%;
+
+      height: 40%;
+      border-radius: 20px 20px 0 0;
+      display: grid;
+      grid-template-columns: 30% 70%;
+      grid-template-areas: "media-art controls";
+      position: relative;
+      .media-art {
+        width: 100px;
+
+        grid-area: media-art;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 20px;
+
+        background: url(./Images/music.png);
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        opacity: 0.95;
+        transition: all 1s;
+        &:hover {
+          transform: scale(1.01);
+          opacity: 1;
+        }
+      }
+      @keyframes rotate {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .controls {
+        grid-area: controls;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        h1 {
+          font-size: 1.3rem;
+          font-family: inherit;
+          color: #ffffff;
+          font-weight: lighter;
+        }
+        .progress-container {
+          width: 80%;
+
+          height: 5px;
+
+          border-radius: 20px;
+          background-color: #ffffffc7;
+          cursor: pointer;
+          .progress {
+            background-color: #ff4060;
+            width: 0;
+            height: 100%;
+            border-radius: 20px;
+          }
+          transition: all 0.5s ;
+          &:hover{
+            height: 7px;
+            transform: scale(1.03);
+          }
+        }
+        .buttons {
+          button {
+            margin: 1rem;
+            border: none;
+            background-color: transparent;
+            color: rgba(0, 0, 0, 0.555);
+            cursor: pointer;
+
+            .fa-pause {
+              display: none;
+            }
+            .fa-pause,
+            .fa-backward,
+            .fa-forward,
+            .fa-play {
+              transition: transform 0.3s ease-in-out;
+              &:hover {
+                transform: scale(1.4);
+              }
+            }
+          }
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+    }
+    .song-list {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      button {
+        width: 100%;
+        border: none;
+
+        border-bottom: 2px solid rgb(209, 76, 116);
+
+        padding: 5px 0 5px 15px;
+        background-color: rgb(255, 129, 146);
+        color: #fff;
+        font-size: 1.5rem;
+
+        text-align: left;
+
+        .fa-play {
+          font-size: 1.3rem;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+        .fa-pause {
+          display: none;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+        &:focus {
+          outline: none;
+        }
+      }
+      :last-child {
+        border-radius: 0 0 20px 20px;
+      }
+    }
+  }
+}
